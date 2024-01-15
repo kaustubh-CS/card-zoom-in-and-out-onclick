@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="pico.min.css">
+    <title>Card Interaction</title>
+    <style>
+        body {
+            background-color: #333;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .card {
+            width: 300px;
+            height: 200px;
+            background-color: white;
+            margin: 20px;
+            transition: all 0.5s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+        .full-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1000;
+        }
+        .back-btn {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1001;
+        }
+        .full-screen .back-btn {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" id="card1">
+        <button class="back-btn" onclick="shrinkCard('card1')">Back</button>
+    </div>
+    <div class="card" id="card2">
+        <button class="back-btn" onclick="shrinkCard('card2')">Back</button>
+    </div>
+
+    <script>
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function(event) {
+                // Prevent triggering this when the back button is clicked
+                if (event.target.className !== 'back-btn') {
+                    this.classList.add('full-screen');
+                }
+            });
+        });
+
+        function shrinkCard(cardId) {
+            document.getElementById(cardId).classList.remove('full-screen');
+        }
+    </script>
+</body>
+</html>
